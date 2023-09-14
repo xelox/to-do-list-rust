@@ -1,10 +1,12 @@
+use std::time::SystemTime;
+
 #[derive(Debug)]
 struct TodoItem {
     _id: u32,
     _name: String,
     _completed: bool,
-    _created_time: u64,
-    _completed_time: u64,
+    _created_time: u128,
+    _completed_time: u128,
 }
 
 impl TodoItem {
@@ -26,7 +28,7 @@ impl Manager {
             _id: self.idx,
             _name: name.clone(),
             _completed: false,
-            _created_time: 0,
+            _created_time: SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_millis(),
             _completed_time: 0,
         };
         self.todo_items.push(todo_item);
